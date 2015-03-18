@@ -58,7 +58,9 @@ angular.module('SignalR', [])
 				Hub[method] = function () {
 					var args = $.makeArray(arguments);
 					args.unshift(method);
-					return Hub.invoke.apply(Hub, args);
+					return Hub.promise.then(function() {
+		                 return Hub.invoke.apply(Hub, args);
+		            });
 				};
 			});
 		}
